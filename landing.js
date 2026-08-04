@@ -1,0 +1,10 @@
+document.querySelectorAll('[data-media]').forEach(el=>{el.src=MEDIA[el.dataset.media]});
+const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots');let si=0,timer;
+slides.forEach((_,i)=>{const b=document.createElement('button');b.className='dot';b.onclick=()=>go(i);dots.appendChild(b)});
+function go(i){si=(i+slides.length)%slides.length;slides.forEach((s,j)=>s.classList.toggle('active',j===si));[...dots.children].forEach((d,j)=>d.classList.toggle('active',j===si));clearInterval(timer);timer=setInterval(()=>go(si+1),4500)}go(0);
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+let pack='Standard';document.querySelectorAll('.package').forEach(a=>a.onclick=()=>{pack=a.dataset.package});
+function email(){const s=encodeURIComponent(pack+' Custom Pet Game Order');const b=encodeURIComponent('Hi, I would like to order a custom pet game.\n\nPackage: '+pack+'\nPet name:\nFavorite treat or toy:\nEnding message:\nOther requests:\n\nI will attach the pet photo.');return 'mailto:ereyaim@gmail.com?subject='+s+'&body='+b}
+document.getElementById('email').onclick=e=>{e.currentTarget.href=email()};document.getElementById('year').textContent=new Date().getFullYear();
+const screens={start:[MEDIA.start,'Personalized opening','Pet portrait, game title, sound control and clear instructions.'],game:[MEDIA.game,'Collect, avoid and score','Bright items, danger markers and responsive movement make the rules easy to understand.'],result:[MEDIA.result,'Gift-ready ending','A personalized score screen makes the experience feel complete and shareable.']};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));const d=screens[b.dataset.i];screenImg.src=d[0];screenTitle.textContent=d[1];screenText.textContent=d[2]});
